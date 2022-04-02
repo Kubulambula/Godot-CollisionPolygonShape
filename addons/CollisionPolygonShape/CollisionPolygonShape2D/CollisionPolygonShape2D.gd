@@ -6,27 +6,34 @@ tool
 extends CollisionPolygon2D
 
 
-var shape: PolygonShape2D setget set_PolygonShape2D
+var shape: PolygonShape2D setget set_shape, get_shape
 
 
 func _get_property_list() -> Array:
 	return [{
-			"name": "shape",
-			"type": TYPE_OBJECT,
-			"hint": PROPERTY_HINT_RESOURCE_TYPE,
-			"hint_string": "PolygonShape2D",
-			"usage": PROPERTY_USAGE_DEFAULT | PROPERTY_USAGE_SCRIPT_VARIABLE,
-			}]
+		"name": "shape",
+		"type": TYPE_OBJECT,
+		"hint": PROPERTY_HINT_RESOURCE_TYPE,
+		"hint_string": "PolygonShape2D",
+		"usage": PROPERTY_USAGE_DEFAULT | PROPERTY_USAGE_SCRIPT_VARIABLE,
+		}]
 
 
-func set_PolygonShape2D(value: PolygonShape2D):
-	shape = value
+func set_shape(value: PolygonShape2D) -> void:
+	if value != shape:
+		if value:
+			shape.disconnect("changed", self, "update_polygon")
+			shape = value
+			shape.connect("changed", self, "update_polygon")
+			update_polygon()
+		else:
+			call_deferred("set_polygon", PoolVector2Array())
+
+
+func get_shape() -> PolygonShape2D:
+	return shape
+
+
+func update_polygon() -> void:
 	if shape:
-		shape.connect("changed", self, "_update_polygon")
-		_update_polygon()
-	else:
-		polygon = PoolVector2Array()
-
-
-func _update_polygon():
-	polygon = shape.get_polygon()
+		call_deferred("set_polygon", shape.get_polygon())
