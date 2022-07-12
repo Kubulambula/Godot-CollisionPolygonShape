@@ -2,6 +2,7 @@
 
 # CollisionPolygonShape
 **CollisionPolygon with predefined shapes just like CollisionShape**
+**Available on [Godot Asset Library](https://godotengine.org/asset-library/asset/1272)**
 
 |                   |                              |
 |-------------------|------------------------------|
