@@ -8,7 +8,7 @@
 |-------------------|------------------------------|
 | **Author**        | Jakub **Kubulambula** Janšta |
 | **Version**       | 1.1                          |
-| **Godot Version** | 3.4.3-stable                 |
+| **Godot Version** | 3.4+                         |
 | **License**       | MIT                          |
 |                   |                              |
 
